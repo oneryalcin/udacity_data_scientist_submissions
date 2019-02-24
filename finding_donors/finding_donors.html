@@ -13902,21 +13902,21 @@ It is a ratio of true positives(words classified as spam, and which are actually
 <li>Support Vector Machines</li>
 </ul>
 <h3 id="Gaussian-Naive-Bayes:">Gaussian Naive Bayes:<a class="anchor-link" href="#Gaussian-Naive-Bayes:">&#182;</a></h3><ul>
-<li>As we have discussed in the lecture we can very easuly set up a spam filter based on the contents of the email. This would be a good application for GaussianNB as we need a fast classifier since mails can be big. Also <em>naive</em> assumption of this model is that occurence of two words are independent events, which doesn't necessarily be true but in many cases of words in email we can accept this. Correaltion of occurence of words is probably not very high for non-stop words. </li>
+<li>As we have discussed in the lecture we can very easily set up a spam filter based on the contents of the email. This would be a good application for GaussianNB as we need a fast classifier since mails can be big. Also <em>naive</em> assumption of this model is that occurence of two words are independent events, which doesn't necessarily be true but in many cases for set of words in a given email we can accept this. Correaltion of occurence of words is probably not very high for non-stop words. </li>
 <li>As I explained in previous section this model is pretty fast, and easy to compute. Another advantage is that it's very easy to understand, and interpretablity in machine learning models are important. One other advantage is that priors are easy to compute and GaussianNB doesn't have many <em>hyperparameters</em>. So we do not really need <code>GridSearch</code> for this algorithm to find best parameters. </li>
-<li>Down side of this algorithm is that it assumes independency of features, so one feature occuring is not conditioned upon another feature. This may not be true depending on the ML problem and features. Also GaussianN B is better suited for continuous normal distributed data. </li>
+<li>Down side of this algorithm is that it assumes independency of features, so one feature occuring is not conditioned upon another feature. This may not be true depending on the ML problem and features. Also GaussianN B is better suited for continuous normal distributed data, which is not the case for us. </li>
 <li>There are few features in our dataset containing different information so correlation between some of these variables are not high, and many features are not continuous and not all continuous variables are normally distributed therefore I do not expect this to perform great. However I want to try and see if this is the case. And I'd like to interpret the result. I also want a model with minimum hyperparameters so this is a good candidate. </li>
 </ul>
 <h3 id="Decision-Trees:">Decision Trees:<a class="anchor-link" href="#Decision-Trees:">&#182;</a></h3><ul>
-<li>Decision trees was successfully applied to predict supreme court case results in 2002 by a professor called Andrew Martin. Decision trees is very interpretable. For example if we are predicting customer churn, decison trees gives us a great insight what we need to focus on to minimize the churn. It's good for business decision cases, like credit approval or to decide to continue of a certain product.</li>
-<li>This model is very easy to visualize and interpret. In this sense it's great to explain non technical people the results. Also prediction time only logarithmicly increases, as the depth of the tree increases. </li>
-<li>However it's easy to overfit and memorize the data with Decision Trees as it inherently has big variance. Therefore we have many hyperparameters to tune for Decision Trees. Also unlike Bayes models, incremental learning is not possible therefore when a new batch of data comes for trainign we need to train from the beginning. </li>
+<li>Decision trees was successfully applied to predict supreme court case results in 2002 by a professor called Andrew Martin. Decision trees is very interpretable. For example if we are predicting customer churn, decison trees gives us a great insight what we need to focus on to minimize the churn. It's good for business decision cases, like credit approval or to decide to continue production of a certain product, like Airbus A380 (If Emirates is not buying, don't produce A380 :) ).</li>
+<li>This model is very easy to visualize and interpret. In this sense it's great to explain to non technical people the results. Also prediction time only logarithmicly increases, as the depth of the tree increases. </li>
+<li>However it's easy to overfit and memorize the data with Decision Trees as it inherently has big variance. Therefore we have many hyperparameters to tune for Decision Trees. Also unlike Bayes models, incremental learning is not possible therefore when a new batch of data comes for training we need to train from the beginning. </li>
 <li>Decision trees are easy to explain and communicate so based on tree CharityML people can focus on a certain segment of people for asking for donations. There are many categorical columns are available in our dataset therefore a decison tree interpretation would be easy. </li>
 </ul>
 <h3 id="AdaBoost">AdaBoost<a class="anchor-link" href="#AdaBoost">&#182;</a></h3><ul>
-<li>Boosting algorithms are used to create slightly more powerful classifiers using many weaker ones. Many Kaggle competitions shows that boosting/ensemble methods are performing better in general. Therefore for example a problem solved by Decision Trees model can be further enhanced with AdaBoost modeluse the Decision tree as a base model.</li>
-<li>Adaboost can train on many small weak models so training time and convergence for a given dataset can be small. It creates a stonger learner from many weak learners so this is a big advantage of Adaboost. </li>
-<li>There are both hyperparameters for AdaBoost itself as well as hyperparameters for the weak learner, therefore finding a good Adaboost model may take some time and different base models. Since weaker models are selected with some randomization it is less interpretable than the base model.</li>
+<li>Boosting algorithms are used to create slightly more powerful classifiers using many weaker ones. Many Kaggle competitions shows that boosting/ensemble methods are performing better in general. Therefore for example a problem solved by Decision Trees model can be further enhanced with AdaBoost model. By default AdaBoost in sklearn uses Decision trees as the base model.</li>
+<li>Adaboost can be train on many small weak models so training time for a given dataset can be small. It creates a stonger learner from many weak learners so this is a big advantage of AdaBoost. </li>
+<li>There are both hyperparameters for AdaBoost itself as well as hyperparameters for the weak learner, therefore finding a good Adaboost model may take some time and different base models. Since weaker models are selected with some randomization it is less interpretable than the base model alone.</li>
 </ul>
 
 </div>
@@ -14141,13 +14141,13 @@ Look at the graph at the bottom left from the cell above(the visualization creat
 <p><strong>Answer:</strong></p>
 <p>Based on the outcomes above I would recommend using <code>AdaBoost</code> algorithm.</p>
 <ul>
-<li><p>AdaBoost performs better after model applied to test data and training is done on 100% of the trainig data. However AdaBoost is not the most performant for the prediction time. GaussianNB or simple Decision Tree predicts a given data faster than AdaBoost however this is not very significant as it can predict still pretty fast unlike SVMs where prediction time grows exponentially.</p>
+<li><p>AdaBoost performs better after model applied to test data and training is done on 100% of the training data. However AdaBoost is not the most performant in terms of prediction time. GaussianNB or simple Decision Tree predicts a given input faster than AdaBoost however this is not very significant as it can predict still pretty fast unlike SVMs where prediction time grows exponentially.</p>
 </li>
-<li><p>Even though DecisionTree classsifer performs great on training dataset it doesn't perform that good in test dataset which suggest some overfitting happens. This is expected as DecisionTrees are susceptible to overfiting easily.</p>
+<li><p>Even though DecisionTree classsifer performs great on training dataset it doesn't perform that good in test dataset which suggest some overfitting happens. This is expected as DecisionTrees are susceptible to overfiting easily due to high variance.</p>
 </li>
 <li><p>AdaBoost uses DecisionTrees as base estimator and AdaBoost reduces variance compared to a single Decision Tree by combinig many weak Decision Trees.</p>
 </li>
-<li><p>The dataset has both categorical data as well as continuous data, and Decision Tree can handle both data types, therefore AdaBoost can also handle both datatypes as DecisionTree is tge base estimator.</p>
+<li><p>The dataset has both categorical data as well as continuous data, and Decision Tree can handle both data types, therefore AdaBoost can also handle both datatypes as DecisionTree is the base estimator.</p>
 </li>
 </ul>
 
@@ -14170,9 +14170,12 @@ Look at the graph at the bottom left from the cell above(the visualization creat
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
-<p>The dataset for building we have has various categorical and continuous columns. In order to train a model for this dataset we transformed the continuous columns (log) and normalized them so any outlier in continuous won't impact model adversely.</p>
-<p>Since we have both mixed continuous and categorical variables DecisionTree is a good candidate as it can work with both types of data. DecisionTree based on hyperparemeters can find a good split of the data. However it is susceptible to overfitting.</p>
-<p>Therefore we need to reduce the variance in DecisionTrees. AdaBoost samples the data with replacement and each time it builds a new decision tree what we call <code>weak model</code>. These <code>weak models</code> are not particulary great but AdaBoost assigns new coefficients to incorrectly classified data points and new <code>weak models</code> are created based on these boosted points. AdaBoost finally assigns coefficients to <code>weak models</code> and after combining these model coefficients it chooses the boundaries of the final <code>strong model</code>. This final model is better than individual <code>weak models</code> and variance is less compared to single DecisionTree, so data is not memorized.</p>
+<p>Our finding donors dataset has various categorical and continuous columns. Continuous data means numerical values and categorical means, data has different category levels, like occupation column. 
+In order to train a model for this dataset we transformed the continuous columns (log), so that skewed data can be dealt easily, and normalized them so all features has values between 0-1.</p>
+<p>Since we have both mixed continuous and categorical variables DecisionTree is a good candidate as it can work with both types of data. DecisionTrees are also easy to undertsand and visualize, they build almost like charts where you start from the beginnign and asking questions like yes or no and follow the arrow based on your answers.</p>
+<p>If good hyperparameters are used DecisionTrees can find a good split of data. However it is susceptible to overfitting. Overfitting means that, it can easily memorize the training data and has some weird questions to split the data. This measn it perfroms good in trainign data however predictions in test data (real life) is pretty useless. Overfitting is related to variance of the model, less variance means less chance of overfitting, thus getting better test data prediction accuracy.</p>
+<p>Therefore we need to reduce the variance in DecisionTrees. I suggest to use AdaBoost algorithm. AdaBoost is a class of ML algorithm that ensembles other machine learning algorithms, in our case it is DecisionTrees. AdaBoost samples the training data with replacement (like drawing a ball from urn and putting it back), and each time it builds a new decision tree. We call these Decison Tree models built from sampled data <code>weak model</code>. <code>Weak models</code> are less powerful than a single DecisionTree trained on whole data, as they are only trained on subset of data. But combination of many <code>weak models</code> build a better Decision Tree than a single Decision Tree trained on whole data points. You may think creating a super human, using different human models, where each human model is good at something different, like one human model can be good at martial arts, another one could be a great actor, another could be a producer, another can be good at writing stories for screen, and another could fly war planes. AdaBoost in this case would build a <code>strong model</code> called <code>ChuckNorris</code> out of all these <code>weak</code> human models.</p>
+<p>In a bit more detail, AdaBoost assigns new coefficients to incorrectly classified data points and new <code>weak models</code> are created based on these boosted points. AdaBoost finally assigns coefficients to <code>weak models</code> and after combining these model coefficients, it chooses the boundaries of the final <code>strong model</code> by votes of individual <code>wak models</code>. This final model is better than individual <code>weak models</code> and variance is less compared to single DecisionTree, so data is not memorized. Prediction based on where a new test datapoint lays on in this hyperplane. If the data lands on a region where <code>weak models</code> voted to be &lt;50K earner then our prediction would tell us not to bother sending mail to this person.</p>
 
 </div>
 </div>
@@ -14441,9 +14444,9 @@ Final F-score on the testing data: 0.7396
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
-<p>To be honest I'm a bit suprised as only one feature I was able to guess. I was suspecting capital-gain and loss to be relevant but since I didn't have much information apart from that they are continuos values in the description I wasn't sure.</p>
-<p>I was suprised especially <code>occupation</code> was not a strong predictor as I thought that's pretty relevant to what you earn. I though age might have some importance but I thought probably strongly correlated with <code>occupation</code> as some senior manager, or a student inherently implies age. One thing I noticed is that all the important features are continuous features, there is no categorical feture in the top 5 list. I'm not sure if this is simply by chance or there is something more fundamental to this result.</p>
-<p>I understand why the features might be relevant to the outcome, but my order of feature strength was completely off.</p>
+<p>To be honest I'm a bit suprised as I was able to guess correctly one feature. I was suspecting <code>capital_gain</code> and <code>capital_loss</code> could be relevant but since I didn't have much information apart from that they are continuos values in the description I wasn't sure.</p>
+<p>I was suprised especially <code>occupation</code> was not a strong predictor as I thought that's pretty relevant to what you earn. I also thought age might have some importance but it is probably strongly correlated with <code>occupation</code> as some senior manager, or a student inherently implies age. One thing I noticed is that all the important features are continuous features, there is no categorical feture in the top 5 list. I'm not sure if this happened simply by chance or there is something more fundamental to this outcome.</p>
+<p>I understand why the features might be relevant to the outcome, but my <em>subjective</em> order of feature strength was completely off.</p>
 
 </div>
 </div>
@@ -14530,7 +14533,7 @@ F-score on testing data: 0.6920
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <p>Both accuracy and F-Score dropped in reduced dataset however it didn't drop dramatically knowing that we dropped eight features, and only leaving 5.</p>
-<p>If prediction time was an important factor, I can consider reduced data as the test dataset shows predictive capability of the model just dropped tiny fraction for all dropped eight columns.</p>
+<p>If prediction time is an important factor, I would consider building model from reduced set of columns, as prediction capability of the model only  dropped a tiny fraction, even though we removed 8 eight columns.</p>
 
 </div>
 </div>
