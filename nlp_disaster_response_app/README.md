@@ -1,6 +1,9 @@
 # Disaster Response Pipeline Project
 
-### Instructions:
+### Live version (accesible over internet) 
+[CLICK HERE](http://185.219.134.139:3001) for the live demo. This is the publicly available running instance of the app. 
+
+### Instructions for local build:
 1. Run the following commands in the project's root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database
@@ -11,4 +14,4 @@
 2. Run the following command in the app's directory to run your web app.
     `python run.py`
 
-3. Go to http://0.0.0.0:3001/
+3. Go to http://0.0.0.0:3001
