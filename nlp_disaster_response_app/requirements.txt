@@ -1,0 +1,5 @@
+nltk
+flask
+sklearn
+pandas
+plotly
