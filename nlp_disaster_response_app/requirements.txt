@@ -1,5 +1,6 @@
 nltk
 flask
-sklearn
+scikit-learn==0.19.1
 pandas
 plotly
+sqlalchemy
