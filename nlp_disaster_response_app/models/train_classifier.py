@@ -15,7 +15,7 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.multioutput import MultiOutputClassifier
-from sklearn.metrics import classification_report, accuracy_score
+from sklearn.metrics import classification_report, accuracy_score, f1_score
 from sklearn.tree import DecisionTreeClassifier
 
 
@@ -110,7 +110,8 @@ def evaluate_model(model, X_test, Y_test, category_names):
     for col in category_names:
         true, predicted  = Y_test[col], Y_pred[col]
         print("Classification report for column ``{}`` \n".format(col),classification_report(true, predicted))
-        print("Accuracy score for column ``{}`` is: {}\n\n".format(col, accuracy_score(true, predicted)))
+        print("Accuracy score for column ``{}`` is: {}".format(col, accuracy_score(true, predicted)))
+        print("f1 score for column ``{}`` is: {}\n\n".format(col, f1_score(true, predicted, average='macro')))
 
         
 def save_model(model, model_filepath):
